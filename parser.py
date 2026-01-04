@@ -3,6 +3,19 @@ import re
 import uuid
 import time
 import requests
+
+import requests
+
+TEST_URL = "https://autokor-auction.com/lot/2022-855105"
+
+r = requests.get(TEST_URL, timeout=30, headers={
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36"
+})
+print("STATUS:", r.status_code)
+print("HEADERS:", dict(r.headers))
+print("TEXT_START:", r.text[:500])
+raise SystemExit("stop test")
+
 from bs4 import BeautifulSoup
 from supabase import create_client
 
