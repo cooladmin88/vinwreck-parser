@@ -1,0 +1,31 @@
+name: Parse carstat
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 */6 * * *"  # каждые 6 часов
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run parser
+        run: python parser.py
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          SUPABASE_BUCKET: lot-photos
+          LOT_URLS: ${{ secrets.LOT_URLS }}
+          ALLOW_KEYWORDS: "run and drive,runs and drives,engine starts,starts"
+          DENY_KEYWORDS: "parts only,non-repairable,scrap,junk,certificate of destruction"
