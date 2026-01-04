@@ -178,5 +178,5 @@ def main():
         parse_lot(url)
 
 
-if name == "__main__":
+if __name__ == "__main__":
     main()
